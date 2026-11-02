@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-03",
+  "edition": "supplement",
+  "coverage": "2026-10-23 至 2026-11-02",
+  "title": "近期漏报补刊：Anthropic 递交 IPO 文件，Sakana 披露 Sawara 计划",
+  "articles": [
+    {
+      "key": "anthropic-ipo", "category": "初创&融资", "published": "2026-10-26",
+      "title": "Anthropic 递交 S-1，拟以 ANT 代码在 Nasdaq 上市",
+      "summary": "已递交 IPO 注册文件，发行股数和价格区间尚未确定，注册声明尚未生效。",
+      "body": "Anthropic 于 10 月 26 日向 SEC 递交 S-1 注册声明，拟公开发行 A 类普通股，并以 **ANT** 为代码在 Nasdaq Global Select Market 上市。发行股数和价格区间尚未确定；注册声明已经提交，但**尚未生效**。公告列出 Goldman Sachs 与 Morgan Stanley 为初步招股书的联系机构，未公布募资金额或确定上市日期。",
+      "insight": "应把递交申请、注册生效和完成上市分开追踪；此次公告确认的是 IPO 程序启动，不能据此推算发行估值或募资规模。",
+      "links": [["Anthropic 公告", "https://www.anthropic.com/news/s1-sec"]]
+    },
+    {
+      "key": "sakana-sawara", "category": "模型前沿", "published": "2026-11-02", "event_date": "2026-10-26",
+      "title": "Sakana 披露从零预训练 Sawara 计划，Small 版本拟于 2027 年春推出",
+      "summary": "Sawara 面向工具推理、编程和长任务；Small 版本仍在开发，目标是 2027 年春。",
+      "body": "Sakana AI 在 11 月 2 日发布的研讨会回顾中披露，公司已着手从零预训练暂名为 **Sakana Sawara** 的语言模型系列。该计划由 Takuya Akiba 在 10 月 26 日的会议上介绍，模型从设计之初面向工具推理、编程和长时间任务，并作为公司产品及递归自我改进研究的底座。与基于既有开放模型做后训练的 Namazu 不同，Sawara 将自行掌握数据和训练流程；首个 Small 版本仍在开发，公司称若进展顺利，计划于 **2027 年春**公开。",
+      "insight": "此次新增信息是自研预训练路线与有条件的发布时间表，后续应观察模型实际交付和训练方法，而非把会议报道等同于模型已经开放使用。",
+      "links": [["Sakana 会议回顾", "https://sakana.ai/symposium-2026/"]]
+    },
+    {
+      "key": "openai-private", "category": "产业动态", "published": "2026-10-30",
+      "title": "OpenAI 推出 Private Intelligence，整合企业数据与智能体权限保护",
+      "summary": "整合数据所有权、智能体权限与保留控制；Private Inference 仍为预览能力。",
+      "body": "OpenAI 于 10 月 30 日通过官方账号介绍 **Private Intelligence**，将企业数据所有权、访问限制、智能体权限和数据安全纳入同一保护框架。企业可以限定智能体可访问的数据、可用工具、可执行操作及需要人工批准的环节。符合条件的 API 工作流可以使用零数据保留；Private Inference 结合机密计算与严格访问控制保护处理中的提示和响应，目前标注为**预览**，并非所有业务默认具备的能力。",
+      "insight": "评估企业私密 AI 应分别核对数据留存、推理过程隔离与行动权限；产品名称本身不能代替具体工作流的资格、配置和合同条款。",
+      "links": [["OpenAI 原帖", "https://x.com/OpenAI/status/2116186509384815084"], ["产品说明", "https://openai.com/business/private-intelligence/"]]
+    },
+    {
+      "key": "openai-grid", "category": "算力追踪", "published": "2026-11-02",
+      "title": "OpenAI 启动 Grid Protectors，拟建园区提供最高 1000MW 灵活负荷",
+      "summary": "佐治亚州拟建园区协议含最高 1000MW 灵活负荷，投运后可在电网紧张时降低用电。",
+      "body": "OpenAI 于 11 月 2 日宣布 **Grid Protectors Program**，拟与电力公司、监管方和政策制定者合作，让未来算力园区在电网承压时降低用电。佐治亚州 Effingham County 拟建园区作为试点，其与 Georgia Power 的协议包含最高 **1000MW** 的灵活需求响应；园区仍在开发，相关响应能力将在投运后提供。OpenAI 表示将承担项目所需的全部供电与基础设施成本，并按各地条件商定可降负荷规模、响应速度和持续时间，部分地点还可能使用现场发电或储能。",
+      "insight": "算力园区的交付条件正延伸到可验证的负荷调节能力；应继续追踪试点投运、响应承诺落地及电力成本如何分摊。",
+      "links": [["OpenAI 公告", "https://openai.com/index/grid-protectors-program"]]
+    },
+    {
+      "key": "anthropic-judgment", "category": "研究关注", "published": "2026-10-27",
+      "title": "Anthropic 随机试验：专家在 86% 的分析选择上跟随智能体倾向",
+      "summary": "50 名分析师参与随机试验，86% 的分析选择跟随被暗中指定的智能体倾向。",
+      "body": "Anthropic 研究团队让 **50 名**有因果推断经验的专业分析师使用 Claude Code，为一项农业咨询服务完成统计分析和政策建议。研究对四个分析选择及最终建议随机设定智能体偏向，参与者并不知道这一安排；在四类分析选择中，参与者有 **86%** 的决定与智能体倾向一致，随机基线为 50%。事后有 **77%** 的参与者复用了智能体论据，但仅 **15%** 在解释中提到智能体来源。作者强调，实验人为强化了智能体倾向，样本较小，结果不能直接外推为所有真实工作场景中的影响幅度。",
+      "insight": "保留人工确认步骤并不自动保证判断独立；高影响分析流程值得记录人类最初偏好、AI 建议和最终采纳理由，帮助识别不自觉的判断让渡。",
+      "links": [["Anthropic 研究", "https://www.anthropic.com/research/agents-judgment-calls"], ["论文原文", "https://www-cdn.anthropic.com/519c17a5d23a794e8b6d50a854048d0b61e0d73a.pdf"]]
+    },
+    {
+      "key": "deepmind-economics", "category": "研究关注", "published": "2026-10-29",
+      "title": "DeepMind 经济学框架：智能体协作能力决定 AGI 的经济扩张规模",
+      "summary": "框架区分个体能力与协作能力，认为仅靠单体评测不足以判断 AGI 的经济影响。",
+      "body": "Google DeepMind 的 Alex Imas、Andrew Koh 与 Shane Legg 发布《The Economics of Intelligence》，并以 Organizing Intelligence 论文给出正式经济模型。框架区分**个体能力**与**协作能力**，讨论 AI 分别成为超强个体、超强协作者或同时跨越两类门槛时，工资、就业和市场结构如何变化。作者认为单个智能体的测试成绩不足以解释组织层面的生产率变化，并提出 AI 的经济影响可能先体现在工资，再传导至企业结构和就业；这些属于模型推导和研究判断，并非已观测到的宏观结论。",
+      "insight": "除了模型能力榜单，评估企业 AI 的价值还应关注任务分工、交接成本和多智能体协调效率；这有助于解释单项能力提升与组织实际产出之间的落差。",
+      "links": [["Alex Imas 原帖", "https://x.com/alexolegimas/status/2115822019518370172"], ["DeepMind 原文", "https://institute.deepmind.com/essays/the-economics-of-intelligence/"]]
+    },
+    {
+      "key": "openai-model-spec", "category": "产业动态", "published": "2026-10-29",
+      "title": "OpenAI 重组 Model Spec：以五项价值指导模型判断与人类监督",
+      "summary": "围绕五项价值重组行为规范，补充上下文、监督和行动副作用指引，并减少细化文风规则。",
+      "body": "OpenAI 于 10 月 29 日更新 Model Spec，围绕**忠于人类意图、减少伤害、诚实透明、人类自主性和关怀**五项价值重组模型行为规范。更新补充了上下文使用、监督、行动副作用及社会规范等指引，并调整指令层级和部分默认行为，删除大部分细化文风条款。OpenAI 同时说明，规范描述的是模型希望达到的行为，当前模型尚未完全符合这些要求，并将继续通过训练与部署反馈改进。",
+      "insight": "评估智能体时应把意图理解、权限边界、主动行动和副作用说明纳入验收，不能只依据回答是否符合字面指令判断其可靠性。",
+      "links": [["OpenAI 公告", "https://openai.com/index/updated-model-spec"]]
+    },
+    {
+      "key": "sakana-api", "category": "产业动态", "published": "2026-10-28",
+      "title": "Sakana API Platform 开启企业早期接入，首批提供 Fugu 与 Fugu Ultra",
+      "summary": "采用 OpenAI 兼容 API，提供团队权限、预算和审计管理，首批开放 Fugu 与 Fugu Ultra。",
+      "body": "Sakana AI 于 10 月 28 日推出企业 API Platform 的早期接入计划，采用 **OpenAI 兼容 API**，首批提供 Sakana Fugu 与 Fugu Ultra，Namazu 和 Fugu Max 将后续接入。平台提供组织与工作区、成员及 API 密钥、按角色访问控制、预算上限和可导出的审计日志，并明确输入数据不用于训练。该计划按申请审核后逐步开放，具体价格和使用条件将在联系申请方时说明，尚非面向所有企业的全面公开服务。",
+      "insight": "此次进展的重点是把模型接入与企业运营治理一起交付；正式采购前应核对可用模型、接入资格及预算和审计功能的实际覆盖范围。",
+      "links": [["Sakana 公告", "https://sakana.ai/api-platform-earlyaccess/"]]
+    },
+    {
+      "key": "sakana-aquarium", "category": "产业动态", "published": "2026-10-23",
+      "title": "Sakana Aquarium 以本体、权限和审批连接企业智能体的判断与执行",
+      "summary": "通过本体连接企业数据与规则，配合权限、审批和执行记录管理智能体。",
+      "body": "Sakana AI 于 10 月 23 日发布企业智能体构建、执行与运营平台 **Sakana Aquarium**。平台用本体整理组织中的数据、知识和规则，在不迁移现有存储的前提下连接表格与文档，并反映后续数据更新。其治理层设置访问权限和执行前审批，记录判断依据与执行结果；托管智能体层把信息检索、AI 判断、函数执行及人工批准组织成可部署工作流，并允许其他智能体复用数据与本体。",
+      "insight": "企业智能体落地的关键资产包括业务语义、权限和可追溯流程；这一平台路线值得与单纯增加模型调用或聊天入口的方案分别评估。",
+      "links": [["Sakana 公告", "https://sakana.ai/aquarium-release/"]]
+    },
+    {
+      "key": "sakana-intelligence", "category": "X讨论", "published": "2026-10-30",
+      "title": "Sakana 分析 70.6 万条选举互动，以多模型核验叙事并交叉检索",
+      "summary": "结合约 70.6 万条 X 互动、多模型核验及 Marlin 外部研究，分析选举叙事变化。",
+      "body": "Sakana AI 于 10 月 30 日发布美国得克萨斯州参议院选举分析案例，处理候选人与两党州组织的 **2042 条** X 发文及 **705976 条**相关反应。系统按叙事单位提取观点，用多个模型对照原文核验，并为支持与批评比例提供统计误差范围。团队再使用 Marlin 检索民调、竞选资金、预测市场和报道，交叉考察线上叙事与外部信号的变化；公司将其定位为供分析师审视和追加验证的情报工具，而非以发帖数量直接预测选举结果。",
+      "insight": "这类案例更值得检验的是证据链、抽样偏差与人工复核方式，不能把社交平台上的叙事变化直接当作整体选民意向或已确定的选举结果。",
+      "links": [["Sakana 分析", "https://sakana.ai/us-midterms-analysis/"]]
+    },
+    {
+      "key": "nvidia-investigation", "category": "算力追踪", "published": "2026-10-29",
+      "title": "报道称与 Jensen Huang 关系密切的商界人士涉嫌向北京提供情报",
+      "summary": "NYT 官方发文确认报道主题；全文访问受限，对人物身份及调查细节保留核实状态。",
+      "body": "据报道，一名与 NVIDIA CEO Jensen Huang 关系密切的中国商界人士涉嫌向北京提供情报，NYT 于 10 月 29 日通过官方账号发布这一报道。**报道正文访问受限**，本条仅保留该媒体官方发文能够确认的核心信息；Byron Wan 的相关转述同时列为参考，其涉及的人物身份、调查过程和白宫处置细节尚未独立核实。",
+      "insight": "应继续关注这一报道与 AI 芯片跨境渠道的关系，但不能把与涉事者存在联系等同于 Jensen Huang 已知情或参与。",
+      "verification": "official_social_only",
+      "links": [["NYT 原帖", "https://x.com/nytimes/status/2115805793891098841"], ["NYT 报道", "https://www.nytimes.com/2026/10/29/us/politics/nvidia-china-jensen-huang-trump.html?smtyp=cur&smid=tw-nytimes"], ["相关转述", "https://x.com/Byron_Wan/status/2115763181033546152"]]
+    },
+    {
+      "key": "altman-dram", "category": "X讨论", "published": "2026-10-30",
+      "title": "Sam Altman 谈 DRAM 短缺：主张通过云端集中配置提高利用率",
+      "summary": "争议源于内存短缺与利用率的访谈表述，并非 OpenAI 宣布取消个人电脑内存。",
+      "body": "IGN 报道 Sam Altman 在 Cheeky Pint 访谈中讨论 AI 行业的全球算力与内存供应限制。他从资源配置角度认为，稀缺 DRAM 分散在个人电脑中、可能仅有约 **5%** 的时间被使用，不如集中到云端提高利用率。报道据此讨论 AI 数据中心需求与消费硬件内存供应的冲突；这一表述是访谈中的资源配置观点，并非 OpenAI 宣布取消个人电脑内存或推出相应政策。",
+      "insight": "观察重点应是数据中心需求如何改变内存供应和采购成本；把集中配置观点简化成用户不应拥有内存，会掩盖云端利用率与个人设备需求之间的实际权衡。",
+      "links": [["IGN 原帖", "https://x.com/IGN/status/2116248030428934527"], ["IGN 报道", "https://sea.ign.com/nvidia-rtx-5080/251273/openai-ceo-sam-altman-thinks-its-terrible-for-you-to-have-ram-in-your-gaming-pc"]]
+    },
+    {
+      "key": "anthropic-openrouter-volume", "category": "X讨论", "published": "2026-10-25",
+      "title": "OpenRouter 平台信号：Opus 5.5 推出后 Anthropic 七日平均 token 量增至 3.6 倍",
+      "summary": "Peter Walker 援引 OpenRouter 数据称，Anthropic 模型七日平均 token 量增至发布前的 3.6 倍。",
+      "body": "Peter J. Walker 于 10 月 25 日援引 OpenRouter 数据表示，Opus 5.5 推出后，Anthropic 模型在该平台的**七日平均 token 使用量增至 3.6 倍**。发文同时称 Sonnet 5.5 与 Haiku 5.5 的市场反馈良好，但未提供统一的衡量标准。该数字对应 OpenRouter 平台和所述时间口径，不代表 Anthropic 全部渠道收入、用户数或整个模型市场份额也增长了相同比例。",
+      "insight": "聚合平台的使用量可作为开发者需求的高频信号，但应结合渠道覆盖、模型价格及调用结构变化，避免把 token 量直接当作商业收入增长。",
+      "links": [["Peter Walker 原帖", "https://x.com/PeterJ_Walker/status/2114377706603429899"]]
+    }
+  ]
+}

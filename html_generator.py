@@ -6,6 +6,7 @@ import os
 import sys
 from datetime import datetime, timedelta
 from collections import defaultdict
+from html import escape
 
 # 尝试导入路径配置
 try:
@@ -158,7 +159,8 @@ def _truncate(text, max_len=36):
 
 
 def generate_html(articles, summary_items, month_day=None, is_latest=True,
-                   file_date=None, prev_file=None, next_file=None, raw_md=None):
+                   file_date=None, prev_file=None, next_file=None, raw_md=None,
+                   display_date=None, coverage_label=None):
     """Header + Briefing above, sidebar + content below
 
     file_date: ISO date string like '2026-03-07' or '2026-03-28+29'
@@ -190,6 +192,9 @@ def generate_html(articles, summary_items, month_day=None, is_latest=True,
             by_cat[c].append(a)
 
     total = len(articles)
+    header_date = escape(display_date or today_iso)
+    header_coverage = (f"{total} 条动态 · {escape(coverage_label)}"
+                       if coverage_label else f"{total} stories, 24h window")
 
     # Top headline (support <!-- headline: ... --> override in md)
     top_headline = "较平静的一天"
@@ -916,9 +921,9 @@ def generate_html(articles, summary_items, month_day=None, is_latest=True,
     <!-- Page wrapper: header + briefing above, sidebar + content below -->
     <div class="page">
         <header class="header">
-            <div class="header-date">{today_iso}</div>
+            <div class="header-date">{header_date}</div>
             <h1>{top_headline}</h1>
-            <div class="header-sub">{total} stories, 24h window</div>
+            <div class="header-sub">{header_coverage}</div>
         </header>
 
         {summary_html}

@@ -15,6 +15,7 @@ import re
 import urllib3
 import hashlib
 import subprocess
+from urllib.parse import urljoin
 
 # 导入规范化模块
 import sys
@@ -1837,6 +1838,7 @@ def _rank_candidates(rank_candidates, recent_articles):
 7. 必须先扫描全部候选再排序；机器人、先进制造、光刻、数据中心、核能/聚变等前沿基础设施属于范围，不能仅因标题不含 AI 而忽略。
 8. 不设机械分类配额，但同质论文或同一公司的小更新不能淹没独立的资本、产能、供应链、合作和技术里程碑。
 9. 有明确系统贡献的训练/推理框架和重要开源研究工具属于高价值研究；具体融资、产能落地、物理基础设施与机器人进展，通常高于泛泛评论、立场声明或未落地的政策猜测。
+10. 头部厂商的正式 IPO 文件、企业产品与隐私控制、模型行为规范、算力及能源承诺是实质动作，不应作为泛泛立场声明降权。会议回顾中若披露新模型计划或交付时间，应按具体进展选稿；只有没有新增事实的会议信息才属于宣传。
 
 只输出 JSON 数组：
 [{{"candidate_id":"R017","rank":1}}, ...]
@@ -2494,7 +2496,8 @@ def fetch_source(name, url, limit=15, max_retries=5):
             for e in feed.entries:
                 if not is_in_window(e): continue
                 title = clean_text(e.get("title", ""))
-                link = e.get("link", "")
+                raw_link = e.get("link", "")
+                link = urljoin(url, raw_link) if raw_link else ""
                 summary = clean_text(e.get("summary") or e.get("description") or "")
                 if not title or len(title) < 5: continue
                 cats = get_cat(title, summary, name)

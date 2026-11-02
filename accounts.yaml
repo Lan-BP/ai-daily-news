@@ -16,6 +16,11 @@ accounts:
     track: "Model"
     feed_whitelist: true
 
+  - handle: "SakanaAILabs"
+    category: "Company"
+    track: "Model"
+    feed_whitelist: true
+
   - handle: "claudeai"
     category: "Company"
     track: "Model"
@@ -222,6 +227,16 @@ accounts:
     feed_whitelist: true
 
   # ============ 研究者账号 ============
+  - handle: "alexolegimas"
+    category: "Researcher"
+    track: "Research"
+    org: "Google DeepMind"
+    feed_whitelist: true
+
+  - handle: "PeterJ_Walker"
+    category: "Researcher"
+    track: "App"
+
   - handle: "ylecun"
     category: "Researcher"
     track: "Research"
