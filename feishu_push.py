@@ -74,6 +74,10 @@ def _parse_summary_from_html(date: str) -> list[dict]:
 
 def build_card(date: str) -> dict:
     gh_url = f"https://linkx-capital.github.io/ai-daily-news/daily-ai-news-{date}.html"
+    issue_label = (
+        f"{date.removesuffix('-supplement')} AI 前沿动态｜补刊"
+        if date.endswith('-supplement') else f"{date} AI 前沿动态"
+    )
 
     elements = []
     summary_elements = _parse_summary_from_html(date)
@@ -94,7 +98,7 @@ def build_card(date: str) -> dict:
 
     return {
         "header": {
-            "title": {"tag": "plain_text", "content": f"{date} AI 前沿动态"},
+            "title": {"tag": "plain_text", "content": issue_label},
             "template": "blue",
         },
         "elements": elements,

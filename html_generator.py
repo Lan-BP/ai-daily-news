@@ -1229,7 +1229,7 @@ def generate_html(articles, summary_items, month_day=None, is_latest=True,
     return html
 
 
-def _update_index_html(today_date_str, articles):
+def _update_index_html(today_date_str, articles, edition=""):
     """在 index.html 中插入今天的条目（如果不存在），并移动'最新'标签。
     同时更新侧边栏导航链接和 nav-count。"""
     import re
@@ -1244,10 +1244,16 @@ def _update_index_html(today_date_str, articles):
 
     # 从日期算月份和日
     dt = datetime.strptime(today_date_str, "%Y-%m-%d")
+    if edition not in {"", "supplement"}:
+        raise ValueError("Unsupported daily edition")
+    suffix = f"-{edition}" if edition else ""
+    issue_slug = f"{today_date_str}{suffix}"
     month_key = dt.strftime("%b").lower()  # apr
     day_num = dt.day
     month_label = dt.strftime("%b")       # Apr
     month_body_id = f"month-{month_key}"
+    entry_id = f'{month_key}-{day_num}{suffix}'
+    edition_label = " · 补刊" if edition else ""
 
     # 构建摘要：从 articles 取前5条标题，格式：<strong>主体</strong>做了什么
     summary_parts = []
@@ -1295,16 +1301,15 @@ def _update_index_html(today_date_str, articles):
 
     # 新条目 HTML
     new_entry = (
-        f'        <a href="daily-ai-news-{today_date_str}.html" class="timeline-entry" id="{month_key}-{day_num}">\n'
-        f'            <div class="te-date">{month_label} {day_num} <span class="te-badge">最新</span></div>\n'
+        f'        <a href="daily-ai-news-{issue_slug}.html" class="timeline-entry" id="{entry_id}">\n'
+        f'            <div class="te-date">{month_label} {day_num}{edition_label} <span class="te-badge">最新</span></div>\n'
         f'            <div class="te-summary">{summary_text}</div>\n'
         f'            <div class="te-count">{count} 条动态</div>\n'
         f'        </a>\n'
     )
 
     # 检查今天的条目是否已存在：存在则替换，不存在则插入
-    entry_id = f'{month_key}-{day_num}'
-    existing_pattern = rf'        <a href="daily-ai-news-{today_date_str}\.html" class="timeline-entry" id="{entry_id}">.*?</a>\n'
+    existing_pattern = rf'        <a href="daily-ai-news-{re.escape(issue_slug)}\.html" class="timeline-entry" id="{entry_id}">.*?</a>\n'
     match = re.search(existing_pattern, html, re.DOTALL)
 
     if match:
@@ -1339,21 +1344,22 @@ def _update_index_html(today_date_str, articles):
             month_start = html.find(f'id="{month_body_id}"')
             print(f"Auto-created month section '{month_body_id}'")
 
-        # 找到 month-body 内容范围（开标签后到闭合 </div>）
+        # 按文章链接边界定位，避免把第一条 te-date 的闭合 div 当成整月结尾。
         body_open_end = html.find('>', month_start) + 1
-        body_close = html.find('</div>', body_open_end)
-        existing_days = [int(d) for d in re.findall(rf'id="{month_key}-(\d+)"', html[body_open_end:body_close])]
-
-        if not existing_days or day_num > max(existing_days):
-            insert_pos = body_open_end          # 最新 → 开头
-        elif day_num < min(existing_days):
-            insert_pos = body_close             # 最旧 → 末尾
-        else:
-            target = max(d for d in existing_days if d < day_num)
-            entry_idx = html.find(f'id="{month_key}-{target}"', body_open_end, body_close)
-            insert_pos = html.rfind('<a ', body_open_end, entry_idx)
-            if insert_pos == -1:
-                insert_pos = entry_idx
+        next_month = html.find('<div class="month-group">', body_open_end)
+        body_end = next_month if next_month != -1 else len(html)
+        entries = list(re.finditer(
+            rf'<a href="[^"]+" class="timeline-entry" id="{month_key}-(\d+)(?:-supplement)?">.*?</a>',
+            html[body_open_end:body_end], re.DOTALL,
+        ))
+        insert_pos = body_open_end
+        if entries:
+            insert_pos = body_open_end + entries[-1].end()
+            for entry in entries:
+                existing_day = int(entry.group(1))
+                if existing_day < day_num or (existing_day == day_num and not edition):
+                    insert_pos = body_open_end + entry.start()
+                    break
         # 历史回填（非首位）时去掉新条目自带的「最新」标签
         entry_html = new_entry if insert_pos == body_open_end else new_entry.replace(' <span class="te-badge">最新</span>', '')
         html = html[:insert_pos] + '\n' + entry_html + html[insert_pos:]
@@ -1366,8 +1372,8 @@ def _update_index_html(today_date_str, articles):
         html = html[:first_te.start()] + full.replace('</div>', ' <span class="te-badge">最新</span></div>') + html[first_te.end():]
 
     # --- 更新侧边栏导航链接 ---
-    nav_link_id = f'#{month_key}-{day_num}'
-    nav_link_text = f'{month_label} {day_num:02d}'
+    nav_link_id = f'#{entry_id}'
+    nav_link_text = f'{month_label} {day_num:02d}{edition_label}'
     new_nav_link = f'                    <a href="{nav_link_id}" class="nav-item">{nav_link_text}</a>'
 
     if f'href="{nav_link_id}"' not in html:
@@ -1401,23 +1407,15 @@ def _update_index_html(today_date_str, articles):
             # 找到该 nav-articles 的结束 </div>
             nav_end = html.find('</div>', nav_start)
             nav_block = html[nav_start:nav_end]
-            # 提取已有的日期链接
-            existing_days = re.findall(rf'href="#{month_key}-(\d+)"', nav_block)
-            existing_days_int = [int(d) for d in existing_days]
-
-            # 找到第一个比当前日期小的位置，在其前面插入
-            insert_pos = nav_start  # 默认插入到开头
-            for i, existing_day in enumerate(existing_days_int):
-                if existing_day < day_num:
-                    # 找到这个链接在 html 中的位置
-                    link_pattern = rf'<a href="#{month_key}-{existing_day}" class="nav-item">'
-                    link_match = re.search(link_pattern, html[nav_start:nav_end])
-                    if link_match:
-                        insert_pos = nav_start + link_match.start()
+            nav_entries = re.finditer(
+                rf'<a href="#{month_key}-(\d+)(?:-supplement)?" class="nav-item">', nav_block
+            )
+            insert_pos = nav_end
+            for entry in nav_entries:
+                existing_day = int(entry.group(1))
+                if existing_day < day_num or (existing_day == day_num and not edition):
+                    insert_pos = nav_start + entry.start()
                     break
-            else:
-                # 所有已有日期都比当前大，插入到末尾
-                insert_pos = nav_end
 
             # 插入时确保换行
             if insert_pos == nav_start or insert_pos == nav_end:
@@ -1428,7 +1426,7 @@ def _update_index_html(today_date_str, articles):
 
     # --- 更新 nav-count ---
     # 统计该月份实际的 timeline-entry 数量
-    month_entries = re.findall(rf'id="{month_key}-\d+"', html)
+    month_entries = re.findall(rf'id="{month_key}-\d+(?:-supplement)?"', html)
     actual_count = len(month_entries)
     month_cn = f"{dt.year} 年 {dt.month} 月"
     count_pattern = rf'(<summary><span>{month_cn}</span><span class="nav-count">)\d+(</span></summary>)'

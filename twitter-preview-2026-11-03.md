@@ -1,7 +1,4 @@
 # 愿你走的每一步，都更靠近喜欢的生活。
-
-[近期漏报补刊：完整 13 条动态，含全部原始链接](https://linkx-capital.github.io/ai-daily-news/daily-ai-news-2026-11-03-supplement.html)
-
 **日期**：2026-11-03 · AI 动态
 **更新**：2026-11-03 00:32 北京时间
 
